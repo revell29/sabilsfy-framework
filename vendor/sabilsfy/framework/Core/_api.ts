@@ -71,13 +71,31 @@ sabil start
 
   async newApps(projectName: string) {
     const spinner = Spinner.getInstance();
-    spinner.start("Installing dependecies...");
-    spinner.setSpinnerType("weather");
-    await Deno.mkdir("testNew");
+    this.printLogo();
+    spinner.start("Ensuring project directory is clean");
+    spinner.setSpinnerType("dots2");
 
-    spinner.setText("Ensuring project directory is clean");
-    spinner.setSpinnerType("clock");
+    setTimeout(async () => {
+      spinner.setText("Contacting the server..");
+      spinner.setSpinnerType("weather");
+      spinner.setText("Installing dependencies..");
+      const cloningProject = Deno.run({
+        cmd: [
+          "git",
+          "clone",
+          "--quiet",
+          "https://github.com/revell29/sabilsfy-framework.git",
+          projectName,
+        ],
+      });
 
-    spinner.succeed();
+      await cloningProject.status();
+      spinner.setText("Dependencies installed");
+
+      setTimeout(() => {
+        spinner.setText("sabilsfy successfully installed");
+        spinner.succeed();
+      }, 200);
+    }, 2000);
   }
 }
