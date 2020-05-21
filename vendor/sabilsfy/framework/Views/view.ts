@@ -1,10 +1,12 @@
 import { dejs } from "../Core/_module.ts";
 
 /**
- *  Render file Ejs from Controller
+ * Sabilsfy - A Deno Framework for Web Artisan
+ *
  * 
- * @param FileName 
- * @param Arg 
+ * Rendering file .EJS from controller or anything
+ * @package  Sabilsfy
+ * @author   Revell29 <diraapsya0@gmail.com>
  */
 export async function View(FileName: string, Arg: any = ""): Promise<any> {
   const output = await dejs.renderFileToString(

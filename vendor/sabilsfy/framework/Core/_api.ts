@@ -3,6 +3,7 @@ import {
   red,
   green,
   blue,
+  cyan,
   bold,
   italic,
 } from "https://deno.land/std@0.52.0/fmt/mod.ts";
@@ -22,8 +23,15 @@ export class Api {
     console.log(blue(`Framework version is v0.0.1`));
   }
 
-  async startServer(): Promise<void> {
-    server();
+  async startServer(targetFile: any): Promise<void> {
+    if (!targetFile) return this.message(red("please provide target file"));
+
+    const running = Deno.run({
+      cmd: ["deno", "run", "-A", "--unstable", targetFile, "--debug"],
+    });
+    // server();
+
+    await running.status();
   }
 
   async makeController(fileName: string): Promise<void> {
@@ -49,7 +57,7 @@ Y88b         88b 888  888b 888 888 C888    888    Y888/
 \__88P'  "88_-888 888-_88"  888 888 \_88P   888     /     
                                                   _/    
     `;
-    console.info(blue(logo));
+    console.info(cyan(logo));
   }
 
   printHelp() {

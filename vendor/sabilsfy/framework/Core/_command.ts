@@ -26,6 +26,6 @@ export function command(obj: { [key: string]: any }, args: string[]): void {
       obj.newApps(args[1]);
     }
   } else {
-    console.log(`Command ${commandName} not found.`);
+    obj.printHelp();
   }
 }
